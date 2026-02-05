@@ -1,0 +1,63 @@
+// Prisma schema for Inventory Management System
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// =====================
+// Product Entity
+// =====================
+model Product {
+  id        String   @id @default(uuid())
+  code      String   @unique @db.VarChar(50)
+  name      String   @db.VarChar(255)
+  value     Decimal  @db.Decimal(10, 2)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  materials ProductMaterial[]
+
+  @@index([code])
+  @@map("products")
+}
+
+// =====================
+// Raw Material Entity
+// =====================
+model RawMaterial {
+  id              String   @id @default(uuid())
+  code            String   @unique @db.VarChar(50)
+  name            String   @db.VarChar(255)
+  quantityInStock Int      @default(0) @map("quantity_in_stock")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  products ProductMaterial[]
+
+  @@index([code])
+  @@map("raw_materials")
+}
+
+// =====================
+// Product-Material Association (BOM)
+// =====================
+model ProductMaterial {
+  id             String   @id @default(uuid())
+  productId      String   @map("product_id")
+  rawMaterialId  String   @map("raw_material_id")
+  quantityNeeded Int      @map("quantity_needed")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  product     Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  rawMaterial RawMaterial @relation(fields: [rawMaterialId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, rawMaterialId])
+  @@index([productId])
+  @@index([rawMaterialId])
+  @@map("product_materials")
+}

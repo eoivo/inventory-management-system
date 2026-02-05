@@ -1,27 +1,31 @@
-# Base image
-FROM node:22-alpine
+# Build stage
+FROM node:22-alpine AS builder
 
-# Create app directory
 WORKDIR /usr/src/app
 
-# Copy package files
 COPY package*.json ./
 COPY prisma ./prisma/
 
-# Install dependencies
 RUN npm install
 
-# Copy source code
 COPY . .
 
-# Generate Prisma Client
 RUN npx prisma generate
-
-# Build the application
 RUN npm run build
+
+# Production stage
+FROM node:22-alpine
+
+WORKDIR /usr/src/app
+
+# Only copy necessary files from builder
+COPY --from=builder /usr/src/app/node_modules ./node_modules
+COPY --from=builder /usr/src/app/dist ./dist
+COPY --from=builder /usr/src/app/package*.json ./
+COPY --from=builder /usr/src/app/prisma ./prisma
 
 # Expose port
 EXPOSE 3000
 
 # Start command
-CMD ["npm", "run", "start:prod"]
+CMD ["node", "dist/main.js"]

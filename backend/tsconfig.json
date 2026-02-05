@@ -30,5 +30,8 @@
     "**/*spec.ts",
     "prisma/seed.ts",
     "prisma.config.ts"
+  ],
+  "include": [
+    "src"
   ]
 }

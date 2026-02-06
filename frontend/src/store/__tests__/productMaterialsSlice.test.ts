@@ -1,9 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import productMaterialsReducer, {
-    clearError,
     clearProductMaterials,
     fetchProductMaterials,
-    addProductMaterial
 } from '../productMaterialsSlice';
 import { productMaterialsService } from '../../services';
 

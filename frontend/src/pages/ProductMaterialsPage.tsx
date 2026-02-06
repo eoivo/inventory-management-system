@@ -123,8 +123,9 @@ export function ProductMaterialsPage() {
         <div className="page-container">
             <div className="page-header">
                 <div className="flex items-center gap-4">
-                    <Link to="/products" className="btn btn-ghost btn-sm">
+                    <Link to="/products" className="btn btn-ghost btn-sm gap-2">
                         <ArrowLeft className="w-4 h-4" />
+                        Voltar para Produtos
                     </Link>
                     <div>
                         <h1 className="page-title">Materiais do Produto</h1>
@@ -198,8 +199,8 @@ export function ProductMaterialsPage() {
                                         <td>
                                             <span
                                                 className={`badge ${material.rawMaterial?.quantityInStock >= material.quantityNeeded
-                                                        ? 'badge-success'
-                                                        : 'badge-error'
+                                                    ? 'badge-success'
+                                                    : 'badge-error'
                                                     }`}
                                             >
                                                 {material.rawMaterial?.quantityInStock || 0} em estoque

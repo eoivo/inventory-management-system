@@ -1,9 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import rawMaterialsReducer, {
     clearError,
-    setSelectedMaterial,
     fetchRawMaterials,
-    createRawMaterial
 } from '../rawMaterialsSlice';
 import { rawMaterialsService } from '../../services';
 

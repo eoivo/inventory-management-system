@@ -1,7 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
 import productionReducer, {
-    clearError,
-    clearData,
     fetchProductionSuggestions
 } from '../productionSlice';
 import { productionService } from '../../services';

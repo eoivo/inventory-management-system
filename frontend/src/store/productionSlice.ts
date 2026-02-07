@@ -39,6 +39,10 @@ const productionSlice = createSlice({
         clearData: (state) => {
             state.data = null;
         },
+        resetStatus: (state) => {
+            state.loading = false;
+            state.error = null;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -57,5 +61,5 @@ const productionSlice = createSlice({
     },
 });
 
-export const { clearError, clearData } = productionSlice.actions;
+export const { clearError, clearData, resetStatus } = productionSlice.actions;
 export default productionSlice.reducer;

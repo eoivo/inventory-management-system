@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { RefreshCw, TrendingUp, Loader2, Package, ChevronDown, ChevronUp } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
-import { fetchProductionSuggestions } from '../store/productionSlice';
+import { fetchProductionSuggestions, resetStatus } from '../store/productionSlice';
 import type { ProductionSuggestion } from '../services';
 
 export function ProductionPage() {
@@ -10,6 +10,7 @@ export function ProductionPage() {
     const [expandedProducts, setExpandedProducts] = useState<Set<string>>(new Set());
 
     useEffect(() => {
+        dispatch(resetStatus());
         dispatch(fetchProductionSuggestions());
     }, [dispatch]);
 

@@ -1,9 +1,13 @@
 import 'dotenv/config';
 import { PrismaClient } from '@prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
+import * as bcrypt from 'bcrypt';
+import pg from 'pg';
 
+const { Pool } = pg;
 const connectionString = process.env.DATABASE_URL;
-const adapter = new PrismaPg({ connectionString });
+const pool = new Pool({ connectionString });
+const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
@@ -13,6 +17,18 @@ async function main() {
     await prisma.productMaterial.deleteMany();
     await prisma.product.deleteMany();
     await prisma.rawMaterial.deleteMany();
+    await prisma.user.deleteMany();
+
+    // Create Admin User
+    const hashedPassword = await bcrypt.hash('admin123', 10);
+    await prisma.user.create({
+        data: {
+            email: 'admin@projedata.com.br',
+            password: hashedPassword,
+            name: 'Administrador Autoflex',
+        },
+    });
+    console.log('Admin user created');
 
     // Create raw materials
     const plastic = await prisma.rawMaterial.create({

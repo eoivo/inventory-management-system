@@ -1,0 +1,245 @@
+Desenvolvedor de Software Full Stack Júnior
+
+Publicada em 28 de janeiro de 2026
+
+Inscrições abertas até 29 de março de 2026
+
+Tipo de vaga: EfetivoModelo de trabalho ícone
+Efetivo
+
+Modelo de trabalho: RemotoTrabalho Remoto ícone
+Remoto
+
+Vaga também para PcDÍcone de accessibilidade
+Vaga também para PcD
+
+Descrição da vaga
+Que tal impactar vidas fazendo parte de uma empresa que potencializa novas soluções e com o avanço tecnológico no Brasil e na América do Sul? 🌎 
+
+ 
+
+Se você compartilha desse propósito, acompanhe nossa oportunidade abaixo e #ComeWithUs #BeProjedata! 
+
+ 
+
+Mas antes de tudo, um ponto muito importante. 
+
+ 
+
+Na Projedata, mais de 50% das posições de liderança são ocupadas por mulheres. E isso não para, queremos buscar ainda mais diversidade em nosso time. A empresa conta com um comitê de Diversidade e Inclusão, e desta forma, consideramos todos candidatos para as nossas oportunidades, sem distinção por deficiência, raça, cor, religião, gênero e identidade de gênero, nacionalidade, orientação sexual, ascendência, idade, ou qualquer outra diversidade. 
+
+
+Sobre a vaga_ 
+
+
+O Desenvolvedor de Software Full Stack é responsável por trabalhar em todas as camadas de um aplicativo ou sistema, desde o desenvolvimento do frontend até o backend e o gerenciamento de bancos de dados. 💙
+
+ 
+
+Essa é sua oportunidade de trazer ideias e metodologias inovadoras para fazer a diferença em uma empresa que está em um processo se expansão e juntos fazermos a diferença nestes em cada um dos níveis de crescimento! 🎉
+
+
+Essa vaga é a sua carinha? 
+
+Responsabilidades e atribuições
+Nessa vaga, você irá... 
+
+
+➡ Quanto a Desenvolvimento Front-end: 
+
+Implementar interfaces de usuário interativas usando tecnologias, tais como: HTML, CSS etc. 
+
+Criar componentes reutilizáveis para melhorar a eficiência do desenvolvimento. 
+
+Utilizar frameworks e bibliotecas para criar interfaces modernas, tais como: React, Redux etc. 
+
+
+➡ Quanto a Desenvolvimento Back-end: 
+
+Criar e manter APIs para comunicação entre o frontend e o backend. 
+
+Implementar lógica de negócios e funcionalidades do aplicativo. 
+
+Gerenciar rotas, autenticação, autorização e validações de entrada. 
+
+Trabalhar com linguagens e frameworks como Java, Quarkus, Spring, Node.js, etc. 
+
+
+➡ Quanto a Banco de Dados:
+
+Projetar e otimizar esquemas de banco de dados para armazenar e recuperar informações. 
+
+Escrever consultas SQL para extrair, modificar e manipular dados. 
+
+Utilizando tecnologias como Oracle. 
+
+
+➡ Quanto a Gerenciamento de versão e colaboração: 
+
+Utilizando sistemas de controle de versão como Git para gerenciar o código-fonte. 
+
+Trabalhe em equipe, colaborando com outros desenvolvedores, analistas e testers. 
+
+
+➡ Quanto a Testes e depuração: 
+
+Realizar testes manuais e automatizados para garantir a qualidade do código. 
+
+Identificar e corrigir bugs e problemas de desempenho. 
+
+Repassar orientações de testes para o time de testers. 
+
+
+➡ Quanto a Aprendizado contínuo:
+
+Manter-se atualizado com as tendências e tecnologias utilizadas em seu time/projeto. 
+
+Participar de cursos, workshops ou conferências para aprimorar suas habilidades. 
+
+
+➡ Quanto a Resolução de problemas: 
+
+Apoiar os analistas, líderes técnicos ou coordenadores nos desafios técnicos, encontrando juntos soluções eficazes para os problemas. 
+
+Pensar de forma crítica e analítica para resolver questões relacionadas ao desenvolvimento. 
+
+
+➡ Quanto a Comunicação: 
+
+Colaborar com a equipe para entender os requisitos do projeto e discutir abordagens técnicas. 
+
+Comunicar o progresso do trabalho e os obstáculos enfrentados. 
+
+
+➡ Quanto a Colaboração: 
+
+Auxiliar na capacitação de colaboradores e clientes conforme demanda. 
+
+Prestar suporte técnico respondendo dúvidas técnicas relacionadas a sua área de atuação. 
+
+Participar de reuniões de planejamento e acompanhamento conforme demanda. Exemplo: Daily Scrum. 
+
+
+Faz sentido para você? Vamos ver o que não pode faltar para você vir para esse time! 
+
+Requisitos e qualificações
+Os requisitos técnicos e comportamentais para esta vaga são: 
+
+ 
+
+Técnico_
+
+➡ Ter familiaridade com alguma das linguagens de programação e frameworks utilizados;
+
+➡ Ser capaz de construir interfaces de usuário básicas;
+
+➡Compreender os conceitos básicos do processo de desenvolvimento de software, tais como: lógica de negócios, integração com banco de dados etc;
+
+➡Estar familiarizado com banco de dados relacionais, sendo capaz de criar consultas simples em SQL;
+
+➡Entender como usar sistemas de controle de versão, tais como Git, para gerenciar o código-fonte e colaborar em projetos;
+
+➡ Ter um conhecimento básico dos protocolos da web (HTTP, HTTPS), e entender como a comunicação ocorre entre o frontend e o backend;
+
+➡ Ser capaz de identificar e solucionar problemas simples no código e na lógica
+
+➡ Possuir graduação ou curso técnico de áreas afins em andamento (Exemplos: sistemas de informação, ciências da computação etc.
+
+ 
+
+Comportamental_
+
+➡Ter habilidades básicas de comunicação e ser capaz de trabalhar em equipe, colaborando com outros membros do time;
+
+➡ Demonstrar disposição para aprender e se atualizar constantemente, acompanhando as mudanças na tecnologia utilizada e nas melhores práticas;
+
+➡ Mostrar profissionalismo, responsabilidade e capacidade de cumprir prazos e compromissos;
+
+➡ Embora seja um desenvolvedor júnior, estar à disposição para ajudar os colegas mais novos e aprender com os colegas mais experientes.
+
+
+ 
+
+ Você ainda se destacará se tiver...  
+
+➡ Conhecimento em git e Jira.
+
+➡ Conhecimento em Quarkus.io, React e Redux.
+
+➡ Conhecimento em Cypress (testes automatizados).
+
+➡ Vivência em indústrias plásticas.
+
+➡ Ter experiência com o ERP.
+
+➡ Conhecimento em negócios na área industrial de embalagens flexíveis.
+
+
+Se identificou? Candidate-se para a oportunidade e venha potencializar você também! 🤩
+
+ 
+
+Informações adicionais
+Por último, mas não menos importante! Confira nossos, (seussss possíveis) benefícios... 🥁 
+
+ 
+
+🏆 Vaga 100% remota. 
+
+🏆 Plano de saúde.
+
+🏆 Seguro de vida. 
+
+🏆 Ginástica Laboral.  
+
+🏆 FreeDay. 
+
+🏆 Biblioteca e verba mensal para aquisição de livros. 
+
+🏆 Vale alimentação. 
+
+🏆 Compensação de horas.  
+
+🏆 Bate papo dos aniversariantes. 
+
+🏆 FreeFeet. 
+
+🏆 Festas de confraternização. 
+
+🏆 Momento Off.  
+
+🏆 Ergonomia. 
+
+🏆 Desenvolvimento continuado. 
+
+🏆 Programa de Inovação. 
+
+🏆 Auxílio Educação. 
+
+🏆 Ambiente fraterno e colaborativo. 
+
+🏆 Flexibilização de horário.  
+
+🏆 Dual Screen.  
+
+🏆 Espaço de convivência.  
+
+🏆 Parcerias com clínicas e academias.  
+
+🏆 Aulas de espanhol.  
+
+🏆 Parceria com nutricionista e psicólogas.  
+
+🏆 Auxílio home office. 
+
+🏆 *Quick massage. 
+
+🏆 *Sala de Jogos. 
+
+🏆 *Lanches quinzenais. 
+
+🏆 *Dia da Fruta. 
+
+🏆 *Café, Leite, chá e bolachas. 
+
+🏆 *Dia da Fruta. 

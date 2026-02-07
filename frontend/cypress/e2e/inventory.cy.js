@@ -1,19 +1,19 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /// <reference types="cypress" />
-import '../support/commands';
-describe('Inventory Management System', () => {
-    beforeEach(() => {
+require("../support/commands");
+describe('Inventory Management System', function () {
+    beforeEach(function () {
         cy.login();
         cy.visit('/');
     });
-
-    it('should redirect to login if not authenticated', () => {
+    it('should redirect to login if not authenticated', function () {
         cy.clearLocalStorage();
         cy.visit('/');
         cy.url().should('include', '/login');
         cy.contains('Industrial Inventory').should('be.visible');
     });
-
-    it('should show error on invalid login', () => {
+    it('should show error on invalid login', function () {
         cy.clearLocalStorage();
         cy.visit('/login');
         cy.get('input[type="email"]').type('errado@projedata.com.br');
@@ -21,66 +21,51 @@ describe('Inventory Management System', () => {
         cy.get('button[type="submit"]').click();
         cy.contains('Invalid credentials').should('be.visible');
     });
-
-    it('should load the dashboard', () => {
+    it('should load the dashboard', function () {
         cy.contains('Dashboard').should('be.visible');
         cy.contains('Visão geral').should('be.visible');
     });
-
-    it('should navigate to Products page', () => {
+    it('should navigate to Products page', function () {
         cy.get('nav').contains('Produtos').click();
         cy.url().should('include', '/products');
         cy.contains('Produtos').should('be.visible');
     });
-
-    it('should navigate to Materials page', () => {
+    it('should navigate to Materials page', function () {
         cy.get('nav').contains('Matérias-Primas').click();
         cy.url().should('include', '/materials');
         cy.contains('Matérias-Primas').should('be.visible');
     });
-
-    it('should navigate to Production suggestions page', () => {
+    it('should navigate to Production suggestions page', function () {
         cy.get('nav').contains('Produção').click();
         cy.url().should('include', '/production');
         cy.contains('Sugestões de Produção').should('be.visible');
     });
-
-    it('should complete a full Raw Material creation flow', () => {
-        const materialCode = `TEST-${Date.now()}`;
-
+    it('should complete a full Raw Material creation flow', function () {
+        var materialCode = "TEST-".concat(Date.now());
         // 1. Go to materials page
         cy.get('nav').contains('Matérias-Primas').click();
-
         // 2. Open modal
         cy.contains('Nova Matéria-Prima').click();
-
         // 3. Fill form - Using placeholder since 'name' attribute is missing
         cy.get('input[placeholder="Ex: RM001"]').type(materialCode);
         cy.get('input[placeholder="Nome da matéria-prima"]').type('Material de Teste Cypress');
         cy.get('input[type="number"]').clear().type('500');
-
         // 4. Submit
         cy.get('button[type="submit"]').click();
-
         // 5. Verify it exists in the table
         cy.contains(materialCode).should('be.visible');
         cy.contains('Material de Teste Cypress').should('be.visible');
     });
-
-    it('should verify the "Back to Products" button in Product Materials page', () => {
+    it('should verify the "Back to Products" button in Product Materials page', function () {
         // Go to products
         cy.get('nav').contains('Produtos').click();
-
         // Click on the first product's BOM/Materials link (first to avoid duplicates)
         cy.get('table tbody tr').first().find('a[href*="/materials"]').first().click();
-
         // Verify we are in the materials page of the product
         cy.url().should('include', '/materials');
         cy.contains('Materiais do Produto').should('be.visible');
-
         // Click the new "Back" button
         cy.contains('Voltar para Produtos').click();
-
         // Verify we are back
         cy.url().should('match', /\/products$/);
         cy.contains('Produtos').should('be.visible');

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Plus, Pencil, Trash2, Loader2, Layers } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
+import { ConfirmModal } from '../components/ConfirmModal';
 import { formatCurrency } from '../utils/format';
 import {
     fetchProducts,
@@ -20,6 +21,10 @@ export function ProductsPage() {
         code: '',
         name: '',
         value: 0,
+    });
+    const [deleteModal, setDeleteModal] = useState<{ isOpen: boolean; id: string | null }>({
+        isOpen: false,
+        id: null,
     });
 
     useEffect(() => {
@@ -77,13 +82,17 @@ export function ProductsPage() {
         }
     };
 
-    const handleDelete = async (id: string) => {
-        if (window.confirm('Tem certeza que deseja excluir este produto?')) {
-            try {
-                await dispatch(deleteProduct(id)).unwrap();
-            } catch {
-                // Error is handled by Redux slice
-            }
+    const handleDeleteClick = (id: string) => {
+        setDeleteModal({ isOpen: true, id });
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!deleteModal.id) return;
+        try {
+            await dispatch(deleteProduct(deleteModal.id)).unwrap();
+            setDeleteModal({ isOpen: false, id: null });
+        } catch {
+            // Error is handled by Redux slice
         }
     };
 
@@ -165,7 +174,7 @@ export function ProductsPage() {
                                                 </button>
                                                 <button
                                                     className="btn btn-ghost btn-sm text-[hsl(var(--color-error))]"
-                                                    onClick={() => handleDelete(product.id)}
+                                                    onClick={() => handleDeleteClick(product.id)}
                                                     title="Excluir Produto"
                                                 >
                                                     <Trash2 className="w-4 h-4" />
@@ -249,6 +258,16 @@ export function ProductsPage() {
                     </div>
                 </div>
             )}
+
+            <ConfirmModal
+                isOpen={deleteModal.isOpen}
+                onClose={() => setDeleteModal({ isOpen: false, id: null })}
+                onConfirm={handleConfirmDelete}
+                title="Excluir Produto"
+                message="Tem certeza que deseja excluir este produto? Todas as associações de matérias-primas também serão removidas."
+                confirmText="Excluir"
+                loading={loading}
+            />
         </div>
     );
 }

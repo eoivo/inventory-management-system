@@ -108,7 +108,6 @@ describe('ProductMaterialsPage', () => {
 
     it('should remove material', async () => {
         (productMaterialsService.remove as any).mockResolvedValue({});
-        vi.spyOn(window, 'confirm').mockReturnValue(true);
 
         renderWithProviders(
             <Routes>
@@ -128,7 +127,13 @@ describe('ProductMaterialsPage', () => {
 
         fireEvent.click(removeButton);
 
-        expect(window.confirm).toHaveBeenCalled();
+        // Verify the ConfirmModal is open
+        expect(screen.getByText('Remover Material', { selector: 'h3' })).toBeInTheDocument();
+
+        // Find and click the confirm button in the modal
+        const confirmBtn = screen.getByRole('button', { name: 'Remover' });
+        fireEvent.click(confirmBtn);
+
         expect(productMaterialsService.remove).toHaveBeenCalledWith('p1', 'm1');
     });
 

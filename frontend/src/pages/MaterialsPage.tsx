@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Plus, Pencil, Trash2, Loader2, AlertTriangle } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
+import { ConfirmModal } from '../components/ConfirmModal';
 import {
     fetchRawMaterials,
     createRawMaterial,
@@ -19,6 +20,10 @@ export function MaterialsPage() {
         name: '',
         quantityInStock: 0,
         unit: 'un',
+    });
+    const [deleteModal, setDeleteModal] = useState<{ isOpen: boolean; id: string | null }>({
+        isOpen: false,
+        id: null,
     });
 
     useEffect(() => {
@@ -67,13 +72,17 @@ export function MaterialsPage() {
         }
     };
 
-    const handleDelete = async (id: string) => {
-        if (window.confirm('Tem certeza que deseja excluir esta matéria-prima?')) {
-            try {
-                await dispatch(deleteRawMaterial(id)).unwrap();
-            } catch {
-                // Error is handled by Redux slice
-            }
+    const handleDeleteClick = (id: string) => {
+        setDeleteModal({ isOpen: true, id });
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!deleteModal.id) return;
+        try {
+            await dispatch(deleteRawMaterial(deleteModal.id)).unwrap();
+            setDeleteModal({ isOpen: false, id: null });
+        } catch {
+            // Error is handled by Redux slice
         }
     };
 
@@ -154,7 +163,7 @@ export function MaterialsPage() {
                                                     </button>
                                                     <button
                                                         className="btn btn-ghost btn-sm text-[hsl(var(--color-error))]"
-                                                        onClick={() => handleDelete(material.id)}
+                                                        onClick={() => handleDeleteClick(material.id)}
                                                     >
                                                         <Trash2 className="w-4 h-4" />
                                                     </button>
@@ -256,6 +265,16 @@ export function MaterialsPage() {
                     </div>
                 </div>
             )}
+
+            <ConfirmModal
+                isOpen={deleteModal.isOpen}
+                onClose={() => setDeleteModal({ isOpen: false, id: null })}
+                onConfirm={handleConfirmDelete}
+                title="Excluir Matéria-Prima"
+                message="Tem certeza que deseja excluir esta matéria-prima? Esta ação não pode ser desfeita e pode afetar produtos que dependem deste material."
+                confirmText="Excluir"
+                loading={loading}
+            />
         </div>
     );
 }

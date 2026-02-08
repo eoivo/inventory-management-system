@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Plus, Pencil, Trash2, Loader2, Package, Layers } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
+import { ConfirmModal } from '../components/ConfirmModal';
 import {
     fetchProductMaterials,
     fetchAvailableMaterials,
@@ -24,6 +25,10 @@ export function ProductMaterialsPage() {
     const [editingMaterial, setEditingMaterial] = useState<ProductMaterial | null>(null);
     const [selectedMaterialId, setSelectedMaterialId] = useState('');
     const [quantityNeeded, setQuantityNeeded] = useState(1);
+    const [deleteModal, setDeleteModal] = useState<{ isOpen: boolean; id: string | null }>({
+        isOpen: false,
+        id: null,
+    });
 
     const product = products.find((p) => p.id === productId);
 
@@ -91,14 +96,17 @@ export function ProductMaterialsPage() {
         }
     };
 
-    const handleRemove = async (rawMaterialId: string) => {
-        if (!productId) return;
-        if (window.confirm('Tem certeza que deseja remover este material do produto?')) {
-            try {
-                await dispatch(removeProductMaterial({ productId, rawMaterialId })).unwrap();
-            } catch {
-                // Error handled by Redux
-            }
+    const handleRemoveClick = (rawMaterialId: string) => {
+        setDeleteModal({ isOpen: true, id: rawMaterialId });
+    };
+
+    const handleConfirmRemove = async () => {
+        if (!productId || !deleteModal.id) return;
+        try {
+            await dispatch(removeProductMaterial({ productId, rawMaterialId: deleteModal.id })).unwrap();
+            setDeleteModal({ isOpen: false, id: null });
+        } catch {
+            // Error handled by Redux
         }
     };
 
@@ -217,7 +225,7 @@ export function ProductMaterialsPage() {
                                                 </button>
                                                 <button
                                                     className="btn btn-ghost btn-sm text-[hsl(var(--color-error))]"
-                                                    onClick={() => handleRemove(material.rawMaterialId)}
+                                                    onClick={() => handleRemoveClick(material.rawMaterialId)}
                                                     title="Remover Material"
                                                 >
                                                     <Trash2 className="w-4 h-4" />
@@ -307,6 +315,16 @@ export function ProductMaterialsPage() {
                     </div>
                 </div>
             )}
+
+            <ConfirmModal
+                isOpen={deleteModal.isOpen}
+                onClose={() => setDeleteModal({ isOpen: false, id: null })}
+                onConfirm={handleConfirmRemove}
+                title="Remover Material"
+                message="Tem certeza que deseja remover este material do produto? Esta ação não excluirá a matéria-prima do estoque, apenas a desassociará deste produto."
+                confirmText="Remover"
+                loading={loading}
+            />
         </div>
     );
 }

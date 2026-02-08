@@ -86,7 +86,6 @@ describe('ProductsPage', () => {
         const mockProducts = [{ id: '1', code: 'P001', name: 'Prod 1', value: 100, materials: [] }];
         (productsService.getAll as any).mockResolvedValue({ data: mockProducts });
         (productsService.delete as any).mockResolvedValue({});
-        vi.spyOn(window, 'confirm').mockReturnValue(true);
 
         renderWithProviders(<ProductsPage />);
 
@@ -98,7 +97,13 @@ describe('ProductsPage', () => {
         const deleteButton = within(row).getByTitle('Excluir Produto');
         fireEvent.click(deleteButton);
 
-        expect(window.confirm).toHaveBeenCalled();
+        // Verify the ConfirmModal is open
+        expect(screen.getByText('Excluir Produto')).toBeInTheDocument();
+
+        // Find and click the confirm button in the modal
+        const confirmBtn = screen.getByRole('button', { name: 'Excluir' });
+        fireEvent.click(confirmBtn);
+
         expect(productsService.delete).toHaveBeenCalledWith('1');
     });
 });

@@ -108,7 +108,6 @@ describe('MaterialsPage', () => {
         const mockMaterials = [{ id: '1', code: 'RM001', name: 'Material 1', quantityInStock: 100, unit: 'un' }];
         (rawMaterialsService.getAll as any).mockResolvedValue({ data: mockMaterials });
         (rawMaterialsService.delete as any).mockResolvedValue({});
-        vi.spyOn(window, 'confirm').mockReturnValue(true);
 
         renderWithProviders(<MaterialsPage />);
 
@@ -123,7 +122,13 @@ describe('MaterialsPage', () => {
 
         fireEvent.click(deleteButton!);
 
-        expect(window.confirm).toHaveBeenCalled();
+        // Verify the ConfirmModal is open
+        expect(screen.getByText('Excluir Matéria-Prima')).toBeInTheDocument();
+
+        // Find and click the confirm button in the modal
+        const confirmBtn = screen.getByRole('button', { name: 'Excluir' });
+        fireEvent.click(confirmBtn);
+
         expect(rawMaterialsService.delete).toHaveBeenCalledWith('1');
     });
 });

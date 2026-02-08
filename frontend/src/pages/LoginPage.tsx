@@ -10,6 +10,17 @@ export function LoginPage() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { loading, error, token } = useAppSelector((state) => state.auth);
+    const [isSlow, setIsSlow] = useState(false);
+
+    useEffect(() => {
+        let timer: any;
+        if (loading) {
+            timer = setTimeout(() => setIsSlow(true), 3500);
+        } else {
+            setIsSlow(false);
+        }
+        return () => clearTimeout(timer);
+    }, [loading]);
 
     useEffect(() => {
         if (token) {
@@ -86,6 +97,12 @@ export function LoginPage() {
                             'Entrar no Sistema'
                         )}
                     </button>
+
+                    {loading && isSlow && (
+                        <p className="text-center text-xs text-[hsl(var(--color-text-secondary))] animate-pulse">
+                            O servidor está sendo iniciado, isso pode levar alguns segundos...
+                        </p>
+                    )}
                 </form>
 
                 <div className="mt-8 pt-6 border-t border-[hsl(var(--color-border))] text-center">

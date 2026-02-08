@@ -2,6 +2,11 @@
 
 Sistema de gestão de inventário industrial para controle de produtos, matérias-primas e sugestões de produção otimizadas. Desenvolvido para o case técnico da Projedata.
 
+### 🌐 Live Demo & API
+- **Frontend App**: [https://inventory-management-frontend-orcin.vercel.app/](https://inventory-management-frontend-orcin.vercel.app/)
+- **API Documentation (Swagger)**: [https://inventory-backend-3dx5.onrender.com/api](https://inventory-backend-3dx5.onrender.com/api)
+- **Base API URL**: [https://inventory-backend-3dx5.onrender.com](https://inventory-backend-3dx5.onrender.com)
+
 ## 🚀 Tecnologias
 
 ### Backend
@@ -17,6 +22,12 @@ Sistema de gestão de inventário industrial para controle de produtos, matéria
 - **Redux Toolkit** - Gerenciamento de estado global
 - **Tailwind CSS** - Estilização moderna e responsiva
 - **Lucide React** - Set de ícones premium
+
+### Testes & Qualidade
+- **Vitest** - Suite de testes unitários ultra-rápida (Frontend)
+- **Jest** - Suite de testes unitários (Backend)
+- **Cypress** - Testes de ponta a ponta (E2E)
+- **v8/Istanbul** - Relatórios detalhados de cobertura
 
 ## 🏗️ Estrutura do Projeto
 
@@ -45,15 +56,23 @@ inventory-management-system/
 
 Este projeto foi desenvolvido com foco em alta testabilidade e previsibilidade.
 
-- **Testes Unitários**: 83 testes passando com **95.37% de cobertura global**.
-- **Services & Controllers**: 100% de cobertura.
-- **Validação de Dados**: Validado rigorosamente com `class-validator` e `class-transformer`.
+### Backend
+- **Unitários**: 83 testes passando com **95.37% de cobertura global**.
+- **Services & Controllers**: 100% de cobertura funcional.
+- **Validação**: Rigorosa com `class-validator` e `class-transformer`.
 
-Para executar os testes:
-```bash
-cd backend
-npm run test:cov
-```
+### Frontend
+- **Unitários**: 134 testes passando com **~95% de cobertura global**.
+- **Core Logic**: Store (Redux) e Services com 100% de cobertura de linhas.
+- **Integração (E2E)**: Fluxos críticos validados com Cypress.
+
+## 🚀 Comandos de Teste
+
+| Camada | Comando | Descrição |
+| :--- | :--- | :--- |
+| **Backend** | `npm run test:cov` (na pasta /backend) | Testes unitários + Relatório de cobertura |
+| **Frontend** | `npm run test:coverage` (na pasta /frontend) | Testes unitários + Relatório de cobertura |
+| **E2E** | `npm run cypress:run` (na pasta /frontend) | Execução de testes de integração E2E |
 
 ## 🧠 Algoritmo de Sugestão de Produção
 
@@ -84,6 +103,12 @@ O sistema utiliza um **Algoritmo Guloso (Greedy Algorithm)** para maximizar o va
 3. `npm run dev`
 
 ## 🔗 URLs Úteis
+
+### Ambiente de Produção
+- **Frontend**: [https://inventory-management-frontend-orcin.vercel.app/](https://inventory-management-frontend-orcin.vercel.app/)
+- **Swagger Docs**: [https://inventory-backend-3dx5.onrender.com/api](https://inventory-backend-3dx5.onrender.com/api)
+
+### Ambiente Local
 - **Backend**: http://localhost:3000
 - **Swagger Docs**: http://localhost:3000/api
 - **Frontend**: http://localhost:5173

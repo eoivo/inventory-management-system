@@ -211,12 +211,14 @@ export function ProductMaterialsPage() {
                                                 <button
                                                     className="btn btn-ghost btn-sm"
                                                     onClick={() => handleOpenEditModal(material)}
+                                                    title="Editar Quantidade"
                                                 >
                                                     <Pencil className="w-4 h-4" />
                                                 </button>
                                                 <button
                                                     className="btn btn-ghost btn-sm text-[hsl(var(--color-error))]"
                                                     onClick={() => handleRemove(material.rawMaterialId)}
+                                                    title="Remover Material"
                                                 >
                                                     <Trash2 className="w-4 h-4" />
                                                 </button>
@@ -246,8 +248,9 @@ export function ProductMaterialsPage() {
                             <div className="modal-body space-y-4">
                                 {!editingMaterial && (
                                     <div className="form-group">
-                                        <label className="form-label">Matéria-Prima</label>
+                                        <label htmlFor="rawMaterialId" className="form-label">Matéria-Prima</label>
                                         <select
+                                            id="rawMaterialId"
                                             className="form-input"
                                             value={selectedMaterialId}
                                             onChange={(e) => setSelectedMaterialId(e.target.value)}
@@ -273,8 +276,9 @@ export function ProductMaterialsPage() {
                                 )}
 
                                 <div className="form-group">
-                                    <label className="form-label">Quantidade Necessária (por unidade do produto)</label>
+                                    <label htmlFor="quantityNeeded" className="form-label">Quantidade Necessária (por unidade do produto)</label>
                                     <input
+                                        id="quantityNeeded"
                                         type="number"
                                         min="1"
                                         className="form-input"

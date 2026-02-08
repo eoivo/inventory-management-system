@@ -130,7 +130,7 @@ export function ProductMaterialsPage() {
                     <div>
                         <h1 className="page-title">Materiais do Produto</h1>
                         <p className="page-description">
-                            {product ? `${product.code} - ${product.name}` : 'Carregando...'}
+                            {product ? `${product.code.toUpperCase()} - ${product.name}` : 'Carregando...'}
                         </p>
                     </div>
                 </div>
@@ -189,11 +189,11 @@ export function ProductMaterialsPage() {
                             ) : (
                                 materials.map((material: ProductMaterial) => (
                                     <tr key={material.rawMaterialId}>
-                                        <td className="font-mono text-sm">{material.rawMaterial?.code}</td>
+                                        <td className="font-mono text-sm">{material.rawMaterial?.code.toUpperCase()}</td>
                                         <td className="font-medium">{material.rawMaterial?.name}</td>
                                         <td>
                                             <span className="badge badge-primary">
-                                                {material.quantityNeeded} por unidade
+                                                {material.quantityNeeded} {material.rawMaterial?.unit} por unidade
                                             </span>
                                         </td>
                                         <td>
@@ -203,7 +203,7 @@ export function ProductMaterialsPage() {
                                                     : 'badge-error'
                                                     }`}
                                             >
-                                                {material.rawMaterial?.quantityInStock || 0} em estoque
+                                                {material.rawMaterial?.quantityInStock || 0} {material.rawMaterial?.unit} em estoque
                                             </span>
                                         </td>
                                         <td>
@@ -259,7 +259,7 @@ export function ProductMaterialsPage() {
                                             <option value="">Selecione uma matéria-prima</option>
                                             {unassociatedMaterials.map((material: RawMaterial) => (
                                                 <option key={material.id} value={material.id}>
-                                                    {material.code} - {material.name} (Estoque: {material.quantityInStock})
+                                                    {material.code.toUpperCase()} - {material.name} (Estoque: {material.quantityInStock} {material.unit})
                                                 </option>
                                             ))}
                                         </select>
@@ -270,20 +270,23 @@ export function ProductMaterialsPage() {
                                     <div className="p-3 rounded-lg bg-[hsl(var(--color-surface))]">
                                         <p className="text-sm text-[hsl(var(--color-text-secondary))]">Material</p>
                                         <p className="font-medium">
-                                            {editingMaterial.rawMaterial?.code} - {editingMaterial.rawMaterial?.name}
+                                            {editingMaterial.rawMaterial?.code.toUpperCase()} - {editingMaterial.rawMaterial?.name}
                                         </p>
                                     </div>
                                 )}
 
                                 <div className="form-group">
-                                    <label htmlFor="quantityNeeded" className="form-label">Quantidade Necessária (por unidade do produto)</label>
+                                    <label htmlFor="quantityNeeded" className="form-label">
+                                        Quantidade Necessária ({editingMaterial ? editingMaterial.rawMaterial?.unit : availableMaterials.find(m => m.id === selectedMaterialId)?.unit || 'un'})
+                                    </label>
                                     <input
                                         id="quantityNeeded"
                                         type="number"
-                                        min="1"
+                                        min="0.01"
+                                        step="0.01"
                                         className="form-input"
                                         value={quantityNeeded}
-                                        onChange={(e) => setQuantityNeeded(parseInt(e.target.value) || 1)}
+                                        onChange={(e) => setQuantityNeeded(parseFloat(e.target.value) || 0)}
                                         required
                                     />
                                     <p className="text-sm text-[hsl(var(--color-text-secondary))] mt-1">

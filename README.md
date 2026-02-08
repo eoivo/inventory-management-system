@@ -94,8 +94,9 @@ O sistema utiliza um **Algoritmo Guloso (Greedy Algorithm)** para maximizar o va
 2. `npm install`
 3. Configure o `.env` (exemplo no `.env.example`)
 4. `npx prisma db push`
-5. `npm run db:seed`
-6. `npm run start:dev`
+5. `npm run db:seed` (Popula dados de teste)
+6. `npm run db:clear` (Limpa dados mantendo apenas usuários)
+7. `npm run start:dev`
 
 ### Frontend
 1. Entre na pasta `frontend`

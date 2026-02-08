@@ -18,6 +18,7 @@ export function MaterialsPage() {
         code: '',
         name: '',
         quantityInStock: 0,
+        unit: 'un',
     });
 
     useEffect(() => {
@@ -36,11 +37,12 @@ export function MaterialsPage() {
             setFormData({
                 code: material.code,
                 name: material.name,
+                unit: material.unit || 'un',
                 quantityInStock: material.quantityInStock,
             });
         } else {
             setEditingMaterial(null);
-            setFormData({ code: '', name: '', quantityInStock: 0 });
+            setFormData({ code: '', name: '', unit: 'un', quantityInStock: 0 });
         }
         setShowModal(true);
     };
@@ -48,7 +50,7 @@ export function MaterialsPage() {
     const handleCloseModal = () => {
         setShowModal(false);
         setEditingMaterial(null);
-        setFormData({ code: '', name: '', quantityInStock: 0 });
+        setFormData({ code: '', name: '', unit: 'un', quantityInStock: 0 });
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -134,9 +136,11 @@ export function MaterialsPage() {
                                     const status = getStockStatus(material.quantityInStock);
                                     return (
                                         <tr key={material.id}>
-                                            <td className="font-mono text-sm">{material.code}</td>
+                                            <td className="font-mono text-sm">{material.code.toUpperCase()}</td>
                                             <td className="font-medium">{material.name}</td>
-                                            <td className="font-semibold">{material.quantityInStock}</td>
+                                            <td className="font-semibold">
+                                                {material.quantityInStock} <span className="text-[hsl(var(--color-text-muted))] font-normal ml-1">{material.unit}</span>
+                                            </td>
                                             <td>
                                                 <span className={`badge ${status.class}`}>{status.label}</span>
                                             </td>
@@ -180,19 +184,21 @@ export function MaterialsPage() {
                         <form onSubmit={handleSubmit}>
                             <div className="modal-body space-y-4">
                                 <div className="form-group">
-                                    <label className="form-label">Código</label>
+                                    <label htmlFor="material-code" className="form-label">Código</label>
                                     <input
+                                        id="material-code"
                                         type="text"
                                         className="form-input"
                                         value={formData.code}
-                                        onChange={(e) => setFormData({ ...formData, code: e.target.value })}
+                                        onChange={(e) => setFormData({ ...formData, code: e.target.value.toUpperCase() })}
                                         placeholder="Ex: RM001"
                                         required
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <label className="form-label">Nome</label>
+                                    <label htmlFor="material-name" className="form-label">Nome</label>
                                     <input
+                                        id="material-name"
                                         type="text"
                                         className="form-input"
                                         value={formData.name}
@@ -201,17 +207,40 @@ export function MaterialsPage() {
                                         required
                                     />
                                 </div>
-                                <div className="form-group">
-                                    <label className="form-label">Quantidade em Estoque</label>
-                                    <input
-                                        type="number"
-                                        min="0"
-                                        className="form-input"
-                                        value={formData.quantityInStock}
-                                        onChange={(e) => setFormData({ ...formData, quantityInStock: parseInt(e.target.value) })}
-                                        placeholder="0"
-                                        required
-                                    />
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="form-group">
+                                        <label htmlFor="material-quantity" className="form-label">Quantidade em Estoque</label>
+                                        <input
+                                            id="material-quantity"
+                                            type="number"
+                                            step="any"
+                                            min="0"
+                                            className="form-input"
+                                            value={formData.quantityInStock}
+                                            onChange={(e) => setFormData({ ...formData, quantityInStock: parseFloat(e.target.value) || 0 })}
+                                            placeholder="0"
+                                            required
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="material-unit" className="form-label">Unidade</label>
+                                        <select
+                                            id="material-unit"
+                                            className="form-input"
+                                            value={formData.unit}
+                                            onChange={(e) => setFormData({ ...formData, unit: e.target.value })}
+                                            required
+                                        >
+                                            <option value="un">un (Unidade)</option>
+                                            <option value="kg">kg (Quilograma)</option>
+                                            <option value="g">g (Grama)</option>
+                                            <option value="L">L (Litro)</option>
+                                            <option value="ml">ml (Mililitro)</option>
+                                            <option value="m">m (Metro)</option>
+                                            <option value="m2">m² (Metro Quadrado)</option>
+                                            <option value="pct">pct (Pacote)</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div className="modal-footer">

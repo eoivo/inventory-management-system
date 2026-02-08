@@ -41,7 +41,7 @@ describe('ProductionPage', () => {
                     quantityToProduce: 5,
                     totalValue: 1250,
                     materialsUsed: [
-                        { rawMaterialId: 'm1', rawMaterialName: 'Mat 1', quantityNeeded: 2, totalQuantityUsed: 10 }
+                        { rawMaterialId: 'm1', rawMaterialName: 'Mat 1', quantityNeeded: 2, totalQuantityUsed: 10, unit: 'un' }
                     ]
                 }
             ]
@@ -72,7 +72,7 @@ describe('ProductionPage', () => {
                     quantityToProduce: 1,
                     totalValue: 100,
                     materialsUsed: [
-                        { rawMaterialId: 'm1', rawMaterialName: 'Mat 1', quantityNeeded: 2, totalQuantityUsed: 2 }
+                        { rawMaterialId: 'm1', rawMaterialName: 'Mat 1', quantityNeeded: 2, totalQuantityUsed: 2, unit: 'kg' }
                     ]
                 }
             ]
@@ -90,7 +90,7 @@ describe('ProductionPage', () => {
 
         expect(screen.getByText('Materiais necessários')).toBeInTheDocument();
         expect(screen.getByText('Mat 1')).toBeInTheDocument();
-        expect(screen.getByText('Total: 2')).toBeInTheDocument();
+        expect(screen.getByText('Total: 2 kg')).toBeInTheDocument();
     });
 
     it('should call fetch on Recalcular button click', async () => {

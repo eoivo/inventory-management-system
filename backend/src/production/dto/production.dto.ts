@@ -15,6 +15,9 @@ export class MaterialUsageDto {
 
     @ApiProperty({ description: 'Total quantity that will be consumed' })
     totalQuantityUsed: number;
+
+    @ApiProperty({ description: 'Unit of measurement' })
+    unit: string;
 }
 
 export class ProductionSuggestionDto {

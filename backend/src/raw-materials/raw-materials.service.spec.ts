@@ -43,8 +43,8 @@ describe('RawMaterialsService', () => {
     describe('findAll', () => {
         it('should return an array of raw materials', async () => {
             const mockMaterials = [
-                { id: '1', code: 'RM001', name: 'Material 1', quantityInStock: 100 },
-                { id: '2', code: 'RM002', name: 'Material 2', quantityInStock: 200 },
+                { id: '1', code: 'RM001', name: 'Material 1', quantityInStock: 100, unit: 'un' },
+                { id: '2', code: 'RM002', name: 'Material 2', quantityInStock: 200, unit: 'un' },
             ];
             prisma.rawMaterial.findMany.mockResolvedValue(mockMaterials);
 
@@ -65,6 +65,7 @@ describe('RawMaterialsService', () => {
                 code: 'RM001',
                 name: 'Material 1',
                 quantityInStock: 100,
+                unit: 'un',
             };
             prisma.rawMaterial.findUnique.mockResolvedValue(mockMaterial);
 
@@ -84,7 +85,7 @@ describe('RawMaterialsService', () => {
 
     describe('create', () => {
         it('should create and return a new raw material', async () => {
-            const createDto = { code: 'RM001', name: 'New Material', quantityInStock: 50 };
+            const createDto = { code: 'RM001', name: 'New Material', quantityInStock: 50, unit: 'un' };
             const expectedMaterial = { id: '1', ...createDto };
 
             prisma.rawMaterial.findUnique.mockResolvedValue(null);
@@ -109,7 +110,7 @@ describe('RawMaterialsService', () => {
     describe('update', () => {
         it('should update and return the raw material', async () => {
             const updateDto = { quantityInStock: 200 };
-            const existingMaterial = { id: '1', code: 'RM001', name: 'Material', quantityInStock: 100 };
+            const existingMaterial = { id: '1', code: 'RM001', name: 'Material', quantityInStock: 100, unit: 'un' };
             const updatedMaterial = { ...existingMaterial, ...updateDto };
 
             prisma.rawMaterial.findUnique.mockResolvedValue(existingMaterial);
@@ -121,8 +122,8 @@ describe('RawMaterialsService', () => {
         });
 
         it('should throw ConflictException when updating to existing code of another material', async () => {
-            const existingMaterial = { id: '1', code: 'RM001', name: 'Material 1' };
-            const otherMaterial = { id: '2', code: 'RM002', name: 'Material 2' };
+            const existingMaterial = { id: '1', code: 'RM001', name: 'Material 1', unit: 'un' };
+            const otherMaterial = { id: '2', code: 'RM002', name: 'Material 2', unit: 'un' };
 
             prisma.rawMaterial.findUnique
                 .mockResolvedValueOnce(existingMaterial) // findOne call
@@ -134,7 +135,7 @@ describe('RawMaterialsService', () => {
 
     describe('remove', () => {
         it('should delete the raw material', async () => {
-            const mockMaterial = { id: '1', code: 'RM001', name: 'Material 1', quantityInStock: 100 };
+            const mockMaterial = { id: '1', code: 'RM001', name: 'Material 1', quantityInStock: 100, unit: 'un' };
             prisma.rawMaterial.findUnique.mockResolvedValue(mockMaterial);
             prisma.rawMaterial.delete.mockResolvedValue(mockMaterial);
 
@@ -152,7 +153,7 @@ describe('RawMaterialsService', () => {
 
     describe('updateStock', () => {
         it('should update stock quantity', async () => {
-            const existingMaterial = { id: '1', code: 'RM001', name: 'Material', quantityInStock: 100 };
+            const existingMaterial = { id: '1', code: 'RM001', name: 'Material', quantityInStock: 100, unit: 'un' };
             const updatedMaterial = { ...existingMaterial, quantityInStock: 150 };
 
             prisma.rawMaterial.findUnique.mockResolvedValue(existingMaterial);

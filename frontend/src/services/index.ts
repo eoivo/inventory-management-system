@@ -23,6 +23,7 @@ export interface RawMaterial {
     code: string;
     name: string;
     quantityInStock: number;
+    unit: string;
     createdAt: string;
     updatedAt: string;
 }
@@ -50,9 +51,9 @@ export const productsService = {
 export const rawMaterialsService = {
     getAll: () => api.get<RawMaterial[]>('/raw-materials'),
     getById: (id: string) => api.get<RawMaterial>(`/raw-materials/${id}`),
-    create: (data: { code: string; name: string; quantityInStock?: number }) =>
+    create: (data: { code: string; name: string; quantityInStock?: number; unit?: string }) =>
         api.post<RawMaterial>('/raw-materials', data),
-    update: (id: string, data: { code?: string; name?: string; quantityInStock?: number }) =>
+    update: (id: string, data: { code?: string; name?: string; quantityInStock?: number; unit?: string }) =>
         api.put<RawMaterial>(`/raw-materials/${id}`, data),
     delete: (id: string) => api.delete(`/raw-materials/${id}`),
 };
@@ -81,6 +82,7 @@ export interface ProductionSuggestion {
         rawMaterialName: string;
         quantityNeeded: number;
         totalQuantityUsed: number;
+        unit: string;
     }[];
 }
 

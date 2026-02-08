@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Plus, Pencil, Trash2, Loader2, Layers } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
+import { formatCurrency } from '../utils/format';
 import {
     fetchProducts,
     createProduct,
@@ -25,12 +26,21 @@ export function ProductsPage() {
         dispatch(fetchProducts());
     }, [dispatch]);
 
-    const formatCurrency = (value: number) => {
-        return new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-        }).format(value);
+    const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        // Remove tudo que não for dígito
+        const rawValue = e.target.value.replace(/\D/g, '');
+
+        // Converte para número e trata como centavos (ex: 150 -> 1.50)
+        const numericValue = rawValue ? Number(rawValue) / 100 : 0;
+
+        setFormData({ ...formData, value: numericValue });
     };
+
+    const displayValue = new Intl.NumberFormat('pt-BR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    }).format(formData.value);
+
 
     const handleOpenModal = (product?: Product) => {
         if (product) {
@@ -124,7 +134,7 @@ export function ProductsPage() {
                             ) : (
                                 products.map((product: Product) => (
                                     <tr key={product.id}>
-                                        <td className="font-mono text-sm">{product.code}</td>
+                                        <td className="font-mono text-sm">{product.code.toUpperCase()}</td>
                                         <td className="font-medium">{product.name}</td>
                                         <td>{formatCurrency(Number(product.value))}</td>
                                         <td>
@@ -185,19 +195,21 @@ export function ProductsPage() {
                         <form onSubmit={handleSubmit}>
                             <div className="modal-body space-y-4">
                                 <div className="form-group">
-                                    <label className="form-label">Código</label>
+                                    <label htmlFor="product-code" className="form-label">Código</label>
                                     <input
+                                        id="product-code"
                                         type="text"
                                         className="form-input"
                                         value={formData.code}
-                                        onChange={(e) => setFormData({ ...formData, code: e.target.value })}
+                                        onChange={(e) => setFormData({ ...formData, code: e.target.value.toUpperCase() })}
                                         placeholder="Ex: PROD001"
                                         required
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <label className="form-label">Nome</label>
+                                    <label htmlFor="product-name" className="form-label">Nome</label>
                                     <input
+                                        id="product-name"
                                         type="text"
                                         className="form-input"
                                         value={formData.name}
@@ -207,17 +219,21 @@ export function ProductsPage() {
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <label className="form-label">Valor Unitário (R$)</label>
-                                    <input
-                                        type="number"
-                                        step="0.01"
-                                        min="0.01"
-                                        className="form-input"
-                                        value={formData.value}
-                                        onChange={(e) => setFormData({ ...formData, value: parseFloat(e.target.value) })}
-                                        placeholder="0,00"
-                                        required
-                                    />
+                                    <label htmlFor="product-value" className="form-label">Valor Unitário</label>
+                                    <div className="relative">
+                                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[hsl(var(--color-text-muted))] font-medium">
+                                            R$
+                                        </span>
+                                        <input
+                                            id="product-value"
+                                            type="text"
+                                            className="form-input pl-10 w-full"
+                                            value={formData.value === 0 && !editingProduct ? '' : displayValue}
+                                            onChange={handleValueChange}
+                                            placeholder="0,00"
+                                            required
+                                        />
+                                    </div>
                                 </div>
                             </div>
                             <div className="modal-footer">

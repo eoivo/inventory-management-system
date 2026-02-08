@@ -32,7 +32,8 @@ model RawMaterial {
   id              String   @id @default(uuid())
   code            String   @unique @db.VarChar(50)
   name            String   @db.VarChar(255)
-  quantityInStock Int      @default(0) @map("quantity_in_stock")
+  quantityInStock Float    @default(0) @map("quantity_in_stock")
+  unit            String   @default("un") @db.VarChar(10)
   createdAt       DateTime @default(now()) @map("created_at")
   updatedAt       DateTime @updatedAt @map("updated_at")
 
@@ -49,7 +50,7 @@ model ProductMaterial {
   id             String   @id @default(uuid())
   productId      String   @map("product_id")
   rawMaterialId  String   @map("raw_material_id")
-  quantityNeeded Int      @map("quantity_needed")
+  quantityNeeded Float    @map("quantity_needed")
   createdAt      DateTime @default(now()) @map("created_at")
   updatedAt      DateTime @updatedAt @map("updated_at")
 

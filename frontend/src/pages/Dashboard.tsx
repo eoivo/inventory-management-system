@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
 import { fetchProducts } from '../store/productsSlice';
 import { fetchRawMaterials } from '../store/rawMaterialsSlice';
 import { fetchProductionSuggestions } from '../store/productionSlice';
+import { formatCurrency } from '../utils/format';
 import type { RawMaterial, ProductionSuggestion } from '../services';
 
 export function Dashboard() {
@@ -19,12 +20,6 @@ export function Dashboard() {
         dispatch(fetchProductionSuggestions());
     }, [dispatch]);
 
-    const formatCurrency = (value: number) => {
-        return new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-        }).format(value);
-    };
 
     const stats = [
         {
@@ -106,7 +101,7 @@ export function Dashboard() {
                                         {suggestion.productName}
                                     </p>
                                     <p className="text-sm text-[hsl(var(--color-text-secondary))]">
-                                        Código: {suggestion.productCode}
+                                        Código: {suggestion.productCode.toUpperCase()}
                                     </p>
                                 </div>
                                 <div className="text-right">

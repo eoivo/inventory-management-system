@@ -18,6 +18,7 @@ describe('RawMaterialsController', () => {
         code: 'RM001',
         name: 'Test Material',
         quantityInStock: 100,
+        unit: 'un',
         createdAt: new Date(),
         updatedAt: new Date(),
     };
@@ -45,7 +46,7 @@ describe('RawMaterialsController', () => {
 
     describe('create', () => {
         it('should call service.create and return material', async () => {
-            const dto: CreateRawMaterialDto = { code: 'RM001', name: 'New Material', quantityInStock: 150 };
+            const dto: CreateRawMaterialDto = { code: 'RM001', name: 'New Material', quantityInStock: 150, unit: 'un' };
             service.create.mockResolvedValue(mockMaterial);
 
             const result = await controller.create(dto);

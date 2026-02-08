@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { RefreshCw, TrendingUp, Loader2, Package, ChevronDown, ChevronUp } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
 import { fetchProductionSuggestions, resetStatus } from '../store/productionSlice';
+import { formatCurrency } from '../utils/format';
 import type { ProductionSuggestion } from '../services';
 
 export function ProductionPage() {
@@ -14,12 +15,6 @@ export function ProductionPage() {
         dispatch(fetchProductionSuggestions());
     }, [dispatch]);
 
-    const formatCurrency = (value: number) => {
-        return new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-        }).format(value);
-    };
 
     const toggleExpanded = (productId: string) => {
         setExpandedProducts((prev) => {
@@ -102,7 +97,7 @@ export function ProductionPage() {
                                             {suggestion.productName}
                                         </h3>
                                         <p className="text-sm text-[hsl(var(--color-text-secondary))]">
-                                            Código: {suggestion.productCode} | Valor unitário: {formatCurrency(suggestion.unitValue)}
+                                            Código: {suggestion.productCode.toUpperCase()} | Valor unitário: {formatCurrency(suggestion.unitValue)}
                                         </p>
                                     </div>
                                 </div>
@@ -140,10 +135,10 @@ export function ProductionPage() {
                                                     <span className="font-medium text-sm">{material.rawMaterialName}</span>
                                                 </div>
                                                 <p className="text-xs text-[hsl(var(--color-text-secondary))]">
-                                                    {material.quantityNeeded} por unidade
+                                                    {material.quantityNeeded} {material.unit} por unidade
                                                 </p>
                                                 <p className="text-sm font-semibold text-[hsl(var(--color-primary))]">
-                                                    Total: {material.totalQuantityUsed}
+                                                    Total: {material.totalQuantityUsed} {material.unit}
                                                 </p>
                                             </div>
                                         ))}

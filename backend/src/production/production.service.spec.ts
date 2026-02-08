@@ -75,6 +75,7 @@ describe('ProductionService', () => {
                                 code: 'RM001',
                                 name: 'Material A',
                                 quantityInStock: 100,
+                                unit: 'un',
                             },
                         },
                         {
@@ -85,6 +86,7 @@ describe('ProductionService', () => {
                                 code: 'RM002',
                                 name: 'Material B',
                                 quantityInStock: 120,
+                                unit: 'un',
                             },
                         },
                     ],
@@ -118,6 +120,7 @@ describe('ProductionService', () => {
                                 code: 'RM001',
                                 name: 'Shared Material',
                                 quantityInStock: 100,
+                                unit: 'un',
                             },
                         },
                     ],
@@ -136,6 +139,7 @@ describe('ProductionService', () => {
                                 code: 'RM001',
                                 name: 'Shared Material',
                                 quantityInStock: 100,
+                                unit: 'un',
                             },
                         },
                     ],
@@ -158,6 +162,7 @@ describe('ProductionService', () => {
                 code: 'RM001',
                 name: 'Shared Material',
                 quantityInStock: 300,
+                unit: 'un',
             };
 
             const limitingMaterial = {
@@ -165,6 +170,7 @@ describe('ProductionService', () => {
                 code: 'RM-LIMIT',
                 name: 'Limiter',
                 quantityInStock: 100,
+                unit: 'un',
             };
 
             prisma.product.findMany.mockResolvedValue([
@@ -216,6 +222,7 @@ describe('ProductionService', () => {
                                 code: 'RM001',
                                 name: 'Shared Material',
                                 quantityInStock: 100,
+                                unit: 'un',
                             },
                         },
                     ],
@@ -234,6 +241,7 @@ describe('ProductionService', () => {
                                 code: 'RM001',
                                 name: 'Shared Material',
                                 quantityInStock: 100,
+                                unit: 'un',
                             },
                         },
                     ],
@@ -262,10 +270,11 @@ describe('ProductionService', () => {
                             quantityNeeded: 2,
                             rawMaterialId: 'mat-exclusive-a',
                             rawMaterial: {
-                                id: 'mat-exclusive-a',
+                                id: 'RM_A',
                                 code: 'RM_A',
                                 name: 'Material A Only',
                                 quantityInStock: 100,
+                                unit: 'un',
                             },
                         },
                     ],
@@ -284,6 +293,7 @@ describe('ProductionService', () => {
                                 code: 'RM_B',
                                 name: 'Material B Only',
                                 quantityInStock: 120,
+                                unit: 'un',
                             },
                         },
                     ],
@@ -319,6 +329,7 @@ describe('ProductionService', () => {
                                 code: 'RM001',
                                 name: 'Material A',
                                 quantityInStock: 50,
+                                unit: 'un',
                             },
                         },
                     ],
@@ -334,6 +345,7 @@ describe('ProductionService', () => {
                 rawMaterialName: 'Material A',
                 quantityNeeded: 5,
                 totalQuantityUsed: 50, // 10 units * 5 per unit
+                unit: 'un',
             });
         });
 
@@ -353,6 +365,7 @@ describe('ProductionService', () => {
                                 code: 'RM001',
                                 name: 'Empty Material',
                                 quantityInStock: 0,
+                                unit: 'un',
                             },
                         },
                     ],
@@ -386,6 +399,7 @@ describe('ProductionService', () => {
                                 code: 'RM001',
                                 name: 'Material A',
                                 quantityInStock: 10,
+                                unit: 'un',
                             },
                         },
                     ],
@@ -396,6 +410,36 @@ describe('ProductionService', () => {
 
             expect(result.suggestions[0].unitValue).toBe(99.99);
             expect(result.suggestions[0].totalValue).toBeCloseTo(999.9, 1);
+        });
+
+        it('should handle decimal quantities correctly', async () => {
+            prisma.product.findMany.mockResolvedValue([
+                {
+                    id: 'product-1',
+                    code: 'PROD001',
+                    name: 'Test Product',
+                    value: 100,
+                    materials: [
+                        {
+                            quantityNeeded: 0.5,
+                            rawMaterialId: 'mat-1',
+                            rawMaterial: {
+                                id: 'mat-1',
+                                code: 'RM001',
+                                name: 'Material A',
+                                quantityInStock: 1.25,
+                                unit: 'kg',
+                            },
+                        },
+                    ],
+                },
+            ]);
+
+            const result = await service.calculateProductionSuggestions();
+
+            // 1.25 / 0.5 = 2.5. floor(2.5) = 2 units.
+            expect(result.suggestions[0].quantityToProduce).toBe(2);
+            expect(result.suggestions[0].materialsUsed[0].totalQuantityUsed).toBe(1); // 2 * 0.5
         });
     });
 });

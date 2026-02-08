@@ -2,7 +2,7 @@ import {
     IsString,
     IsNotEmpty,
     MaxLength,
-    IsInt,
+    IsNumber,
     Min,
     IsOptional,
 } from 'class-validator';
@@ -36,8 +36,19 @@ export class CreateRawMaterialDto {
         default: 0,
     })
     @IsOptional()
-    @IsInt()
+    @IsNumber()
     @Min(0)
     @Type(() => Number)
     quantityInStock?: number = 0;
+
+    @ApiProperty({
+        description: 'Unit of measurement',
+        example: 'kg',
+        default: 'un',
+        maxLength: 10,
+    })
+    @IsOptional()
+    @IsString()
+    @MaxLength(10)
+    unit?: string = 'un';
 }

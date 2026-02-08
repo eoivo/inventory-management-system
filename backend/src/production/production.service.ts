@@ -18,6 +18,7 @@ interface ProductWithMaterials {
             code: string;
             name: string;
             quantityInStock: number;
+            unit: string;
         };
     }[];
 }
@@ -36,7 +37,7 @@ export class ProductionService {
 
     async calculateProductionSuggestions(): Promise<ProductionResponseDto> {
         // Step 1: Fetch all products with their material requirements
-        const products = await this.prisma.product.findMany({
+        const products = (await this.prisma.product.findMany({
             include: {
                 materials: {
                     include: {
@@ -44,7 +45,7 @@ export class ProductionService {
                     },
                 },
             },
-        });
+        })) as unknown as ProductWithMaterials[];
 
         // Step 2: Calculate how many of each product can be produced
         const productionCapacity = products.map((product) => {
@@ -160,6 +161,7 @@ export class ProductionService {
                         rawMaterialName: material.rawMaterial.name,
                         quantityNeeded: material.quantityNeeded,
                         totalQuantityUsed: quantityUsed,
+                        unit: material.rawMaterial.unit,
                     });
                 }
 

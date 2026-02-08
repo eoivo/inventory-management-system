@@ -36,6 +36,7 @@ async function main() {
             code: 'RM001',
             name: 'Resina Plástica',
             quantityInStock: 1000,
+            unit: 'kg',
         },
     });
 
@@ -44,6 +45,7 @@ async function main() {
             code: 'RM002',
             name: 'Tinta de Impressão',
             quantityInStock: 500,
+            unit: 'L',
         },
     });
 
@@ -52,6 +54,7 @@ async function main() {
             code: 'RM003',
             name: 'Adesivo Industrial',
             quantityInStock: 200,
+            unit: 'kg',
         },
     });
 
@@ -60,6 +63,7 @@ async function main() {
             code: 'RM004',
             name: 'Folha de Alumínio',
             quantityInStock: 300,
+            unit: 'kg',
         },
     });
 
@@ -68,6 +72,7 @@ async function main() {
             code: 'RM005',
             name: 'Papel Kraft',
             quantityInStock: 800,
+            unit: 'kg',
         },
     });
 

@@ -33,4 +33,15 @@ describe('CreateRawMaterialDto', () => {
         const errors = await validate(dto);
         expect(errors.length).toBeGreaterThan(0);
     });
+
+    it('should validate if quantityInStock is a decimal', async () => {
+        const payload = {
+            code: 'RM001',
+            name: 'Test Material',
+            quantityInStock: 10.5,
+        };
+        const dto = plainToInstance(CreateRawMaterialDto, payload);
+        const errors = await validate(dto);
+        expect(errors.length).toBe(0);
+    });
 });

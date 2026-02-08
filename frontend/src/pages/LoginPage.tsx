@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
 import { login, clearError } from '../store/authSlice';
-import { LogIn, Loader2, AlertCircle } from 'lucide-react';
+import { Loader2, AlertCircle } from 'lucide-react';
 
 export function LoginPage() {
     const [email, setEmail] = useState('');
@@ -44,8 +44,8 @@ export function LoginPage() {
             <div className="card w-full max-w-md p-8">
                 <div className="text-center mb-8">
                     <div className="flex justify-center mb-4">
-                        <div className="w-12 h-12 bg-[hsl(var(--color-primary-light))] rounded-xl flex items-center justify-center">
-                            <LogIn className="w-6 h-6 text-[hsl(var(--color-primary))]" />
+                        <div className="w-16 h-16 bg-[hsl(var(--color-primary-light))] rounded-2xl flex items-center justify-center p-3 animate-slide-up">
+                            <img src="/favicon.svg" alt="Logo" className="w-full h-full" />
                         </div>
                     </div>
                     <h1 className="text-2xl font-bold text-[hsl(var(--color-text-primary))]">Industrial Inventory</h1>

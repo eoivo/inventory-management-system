@@ -29,8 +29,8 @@ describe('MaterialsPage', () => {
 
     it('should render list of materials', async () => {
         const mockMaterials = [
-            { id: '1', code: 'RM001', name: 'Material 1', quantityInStock: 100 },
-            { id: '2', code: 'RM002', name: 'Material 2', quantityInStock: 10 }
+            { id: '1', code: 'RM001', name: 'Material 1', quantityInStock: 100, unit: 'kg' },
+            { id: '2', code: 'RM002', name: 'Material 2', quantityInStock: 10, unit: 'un' }
         ];
         (rawMaterialsService.getAll as any).mockResolvedValue({ data: mockMaterials });
 
@@ -42,16 +42,18 @@ describe('MaterialsPage', () => {
 
         expect(screen.getByText('Material 1')).toBeInTheDocument();
         expect(screen.getByText('100')).toBeInTheDocument();
+        expect(screen.getByText('kg')).toBeInTheDocument();
         expect(screen.getByText('Normal')).toBeInTheDocument(); // Badge status
 
         expect(screen.getByText('Material 2')).toBeInTheDocument();
         expect(screen.getByText('10')).toBeInTheDocument();
+        expect(screen.getByText('un')).toBeInTheDocument();
         expect(screen.getByText('Baixo estoque')).toBeInTheDocument();
     });
 
     it('should show low stock alert if any material is low', async () => {
         const mockMaterials = [
-            { id: '2', code: 'RM002', name: 'Material 2', quantityInStock: 10 }
+            { id: '2', code: 'RM002', name: 'Material 2', quantityInStock: 10, unit: 'un' }
         ];
         (rawMaterialsService.getAll as any).mockResolvedValue({ data: mockMaterials });
 
@@ -72,7 +74,7 @@ describe('MaterialsPage', () => {
     });
 
     it('should call create service on form submit', async () => {
-        (rawMaterialsService.create as any).mockResolvedValue({ data: { id: '3', code: 'NEW', name: 'New Material', quantityInStock: 50 } });
+        (rawMaterialsService.create as any).mockResolvedValue({ data: { id: '3', code: 'NEW', name: 'New Material', quantityInStock: 50, unit: 'kg' } });
 
         renderWithProviders(<MaterialsPage />);
 
@@ -85,6 +87,10 @@ describe('MaterialsPage', () => {
         fireEvent.change(screen.getByPlaceholderText('Nome da matéria-prima'), { target: { value: 'Material 3' } });
         fireEvent.change(screen.getByPlaceholderText('0'), { target: { value: '50' } });
 
+        // Change unit to kg
+        const unitSelect = screen.getByLabelText('Unidade');
+        fireEvent.change(unitSelect, { target: { value: 'kg' } });
+
         const submitButton = screen.getByRole('button', { name: 'Criar' });
         fireEvent.click(submitButton);
 
@@ -92,13 +98,14 @@ describe('MaterialsPage', () => {
             expect(rawMaterialsService.create).toHaveBeenCalledWith(expect.objectContaining({
                 code: 'RM003',
                 name: 'Material 3',
-                quantityInStock: 50
+                quantityInStock: 50,
+                unit: 'kg'
             }));
         });
     });
 
     it('should call delete service when clicking delete and confirming', async () => {
-        const mockMaterials = [{ id: '1', code: 'RM001', name: 'Material 1', quantityInStock: 100 }];
+        const mockMaterials = [{ id: '1', code: 'RM001', name: 'Material 1', quantityInStock: 100, unit: 'un' }];
         (rawMaterialsService.getAll as any).mockResolvedValue({ data: mockMaterials });
         (rawMaterialsService.delete as any).mockResolvedValue({});
         vi.spyOn(window, 'confirm').mockReturnValue(true);

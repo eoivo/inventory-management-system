@@ -26,7 +26,7 @@ describe('rawMaterialsSlice', () => {
         error: null,
     };
 
-    const mockMaterial = { id: '1', code: 'RM1', name: 'Mat 1', quantityInStock: 10, createdAt: '', updatedAt: '' };
+    const mockMaterial = { id: '1', code: 'RM1', name: 'Mat 1', quantityInStock: 10, unit: 'un', createdAt: '', updatedAt: '' };
 
     beforeEach(() => {
         vi.clearAllMocks();

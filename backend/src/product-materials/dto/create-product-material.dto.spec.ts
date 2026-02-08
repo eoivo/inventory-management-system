@@ -22,4 +22,14 @@ describe('CreateProductMaterialDto', () => {
         const errors = await validate(dto);
         expect(errors.length).toBeGreaterThan(0);
     });
+
+    it('should validate if quantityNeeded is a decimal', async () => {
+        const payload = {
+            rawMaterialId: 'uuid-1',
+            quantityNeeded: 1.5,
+        };
+        const dto = plainToInstance(CreateProductMaterialDto, payload);
+        const errors = await validate(dto);
+        expect(errors.length).toBe(0);
+    });
 });

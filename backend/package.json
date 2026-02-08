@@ -20,6 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "db:migrate": "npx prisma migrate dev",
     "db:seed": "npx tsx prisma/seed.ts",
+    "db:clear": "npx tsx prisma/clear.ts",
     "db:reset": "npx prisma migrate reset --force"
   },
   "prisma": {

@@ -22,7 +22,7 @@ describe('ProductMaterialsService', () => {
     };
 
     const mockProduct = { id: 'product-1', code: 'PROD001', name: 'Product 1' };
-    const mockRawMaterial = { id: 'material-1', code: 'RM001', name: 'Material 1', quantityInStock: 100 };
+    const mockRawMaterial = { id: 'material-1', code: 'RM001', name: 'Material 1', quantityInStock: 100, unit: 'un' };
     const mockAssociation = {
         id: 'assoc-1',
         productId: 'product-1',

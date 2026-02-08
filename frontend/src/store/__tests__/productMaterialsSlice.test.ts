@@ -36,10 +36,10 @@ describe('productMaterialsSlice', () => {
         productId: 'p1',
         rawMaterialId: 'm1',
         quantityNeeded: 2,
-        rawMaterial: { id: 'm1', code: 'RM1', name: 'Mat 1', quantityInStock: 20, createdAt: '', updatedAt: '' }
+        rawMaterial: { id: 'm1', code: 'RM1', name: 'Mat 1', quantityInStock: 20, unit: 'un', createdAt: '', updatedAt: '' }
     };
 
-    const mockRawMaterial = { id: 'm1', code: 'RM1', name: 'Mat 1', quantityInStock: 20, createdAt: '', updatedAt: '' };
+    const mockRawMaterial = { id: 'm1', code: 'RM1', name: 'Mat 1', quantityInStock: 20, unit: 'un', createdAt: '', updatedAt: '' };
 
     beforeEach(() => {
         vi.clearAllMocks();

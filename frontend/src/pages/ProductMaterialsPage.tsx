@@ -24,7 +24,7 @@ export function ProductMaterialsPage() {
     const [showModal, setShowModal] = useState(false);
     const [editingMaterial, setEditingMaterial] = useState<ProductMaterial | null>(null);
     const [selectedMaterialId, setSelectedMaterialId] = useState('');
-    const [quantityNeeded, setQuantityNeeded] = useState(1);
+    const [quantityNeeded, setQuantityNeeded] = useState<number | string>(1);
     const [deleteModal, setDeleteModal] = useState<{ isOpen: boolean; id: string | null }>({
         isOpen: false,
         id: null,
@@ -50,7 +50,7 @@ export function ProductMaterialsPage() {
     const handleOpenAddModal = () => {
         setEditingMaterial(null);
         setSelectedMaterialId(unassociatedMaterials[0]?.id || '');
-        setQuantityNeeded(1);
+        setQuantityNeeded('');
         setShowModal(true);
     };
 
@@ -78,7 +78,7 @@ export function ProductMaterialsPage() {
                     updateProductMaterial({
                         productId,
                         rawMaterialId: editingMaterial.rawMaterialId,
-                        quantityNeeded,
+                        quantityNeeded: Number(quantityNeeded) || 0,
                     })
                 ).unwrap();
             } else {
@@ -86,7 +86,7 @@ export function ProductMaterialsPage() {
                     addProductMaterial({
                         productId,
                         rawMaterialId: selectedMaterialId,
-                        quantityNeeded,
+                        quantityNeeded: Number(quantityNeeded) || 0,
                     })
                 ).unwrap();
             }
@@ -294,7 +294,7 @@ export function ProductMaterialsPage() {
                                         step="0.01"
                                         className="form-input"
                                         value={quantityNeeded}
-                                        onChange={(e) => setQuantityNeeded(parseFloat(e.target.value) || 0)}
+                                        onChange={(e) => setQuantityNeeded(e.target.value)}
                                         required
                                     />
                                     <p className="text-sm text-[hsl(var(--color-text-secondary))] mt-1">

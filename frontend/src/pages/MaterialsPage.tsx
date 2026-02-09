@@ -15,7 +15,12 @@ export function MaterialsPage() {
     const { items: materials, loading, error } = useAppSelector((state) => state.rawMaterials);
     const [showModal, setShowModal] = useState(false);
     const [editingMaterial, setEditingMaterial] = useState<RawMaterial | null>(null);
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<{
+        code: string;
+        name: string;
+        quantityInStock: number | string;
+        unit: string;
+    }>({
         code: '',
         name: '',
         quantityInStock: 0,
@@ -47,7 +52,7 @@ export function MaterialsPage() {
             });
         } else {
             setEditingMaterial(null);
-            setFormData({ code: '', name: '', unit: 'un', quantityInStock: 0 });
+            setFormData({ code: '', name: '', unit: 'un', quantityInStock: '' });
         }
         setShowModal(true);
     };
@@ -60,11 +65,15 @@ export function MaterialsPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        const dataToSubmit = {
+            ...formData,
+            quantityInStock: Number(formData.quantityInStock) || 0,
+        };
         try {
             if (editingMaterial) {
-                await dispatch(updateRawMaterial({ id: editingMaterial.id, data: formData })).unwrap();
+                await dispatch(updateRawMaterial({ id: editingMaterial.id, data: dataToSubmit })).unwrap();
             } else {
-                await dispatch(createRawMaterial(formData)).unwrap();
+                await dispatch(createRawMaterial(dataToSubmit)).unwrap();
             }
             handleCloseModal();
         } catch {
@@ -226,7 +235,7 @@ export function MaterialsPage() {
                                             min="0"
                                             className="form-input"
                                             value={formData.quantityInStock}
-                                            onChange={(e) => setFormData({ ...formData, quantityInStock: parseFloat(e.target.value) || 0 })}
+                                            onChange={(e) => setFormData({ ...formData, quantityInStock: e.target.value })}
                                             placeholder="0"
                                             required
                                         />

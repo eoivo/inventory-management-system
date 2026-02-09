@@ -124,7 +124,8 @@ export function MaterialsPage() {
                 </div>
             )}
 
-            <div className="card p-0">
+            {/* Desktop Table View */}
+            <div className="card p-0 hidden lg:block">
                 <div className="table-container">
                     <table className="table">
                         <thead>
@@ -167,12 +168,14 @@ export function MaterialsPage() {
                                                     <button
                                                         className="btn btn-ghost btn-sm"
                                                         onClick={() => handleOpenModal(material)}
+                                                        title="Editar"
                                                     >
                                                         <Pencil className="w-4 h-4" />
                                                     </button>
                                                     <button
                                                         className="btn btn-ghost btn-sm text-[hsl(var(--color-error))]"
                                                         onClick={() => handleDeleteClick(material.id)}
+                                                        title="Excluir"
                                                     >
                                                         <Trash2 className="w-4 h-4" />
                                                     </button>
@@ -185,6 +188,59 @@ export function MaterialsPage() {
                         </tbody>
                     </table>
                 </div>
+            </div>
+
+            {/* Mobile Cards View */}
+            <div className="lg:hidden grid grid-cols-1 gap-4">
+                {loading && !materials.length ? (
+                    <div className="card flex items-center justify-center py-12">
+                        <Loader2 className="w-8 h-8 animate-spin text-[hsl(var(--color-primary))]" />
+                    </div>
+                ) : materials.length === 0 ? (
+                    <div className="card text-center py-12 text-[hsl(var(--color-text-secondary))]">
+                        Nenhuma matéria-prima cadastrada
+                    </div>
+                ) : (
+                    materials.map((material: RawMaterial) => {
+                        const status = getStockStatus(material.quantityInStock);
+                        return (
+                            <div key={material.id} className="card flex flex-col gap-4">
+                                <div className="flex items-start justify-between">
+                                    <div className="min-w-0">
+                                        <p className="text-xs font-mono text-[hsl(var(--color-text-muted))] mb-1">
+                                            {material.code.toUpperCase()}
+                                        </p>
+                                        <h3 className="font-bold text-[hsl(var(--color-text-primary))] truncate mb-1">
+                                            {material.name}
+                                        </h3>
+                                        <div className="flex items-center gap-2">
+                                            <span className={`badge ${status.class} text-[10px]`}>
+                                                {status.label}
+                                            </span>
+                                            <span className="text-sm font-semibold text-[hsl(var(--color-primary))]">
+                                                {material.quantityInStock} {material.unit}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <button
+                                            className="p-2 rounded-lg bg-[hsl(var(--color-surface))] text-[hsl(var(--color-text-secondary))] hover:text-[hsl(var(--color-primary))] transition-colors"
+                                            onClick={() => handleOpenModal(material)}
+                                        >
+                                            <Pencil className="w-5 h-5" />
+                                        </button>
+                                        <button
+                                            className="p-2 rounded-lg bg-[hsl(var(--color-error-light))] text-[hsl(var(--color-error))] hover:bg-[hsl(var(--color-error))] hover:text-white transition-all"
+                                            onClick={() => handleDeleteClick(material.id)}
+                                        >
+                                            <Trash2 className="w-5 h-5" />
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    })
+                )}
             </div>
 
             {/* Modal */}
@@ -225,7 +281,7 @@ export function MaterialsPage() {
                                         required
                                     />
                                 </div>
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div className="form-group">
                                         <label htmlFor="material-quantity" className="form-label">Quantidade em Estoque</label>
                                         <input

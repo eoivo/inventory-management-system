@@ -165,7 +165,8 @@ export function ProductMaterialsPage() {
                 </div>
             )}
 
-            <div className="card p-0">
+            {/* Desktop Table View */}
+            <div className="card p-0 hidden lg:block">
                 <div className="table-container">
                     <table className="table">
                         <thead>
@@ -238,6 +239,75 @@ export function ProductMaterialsPage() {
                         </tbody>
                     </table>
                 </div>
+            </div>
+
+            {/* Mobile Cards View */}
+            <div className="lg:hidden grid grid-cols-1 gap-4">
+                {loading && !materials.length ? (
+                    <div className="card flex items-center justify-center py-12">
+                        <Loader2 className="w-8 h-8 animate-spin text-[hsl(var(--color-primary))]" />
+                    </div>
+                ) : materials.length === 0 ? (
+                    <div className="card text-center py-12 text-[hsl(var(--color-text-secondary))]">
+                        <Layers className="w-12 h-12 mx-auto mb-4 text-[hsl(var(--color-text-muted))]" />
+                        <p className="text-lg font-medium text-[hsl(var(--color-text-primary))]">
+                            Sem materiais
+                        </p>
+                        <p className="text-sm">Associe matérias-primas para iniciar</p>
+                    </div>
+                ) : (
+                    materials.map((material: ProductMaterial) => (
+                        <div key={material.rawMaterialId} className="card flex flex-col gap-4">
+                            <div className="flex items-start justify-between">
+                                <div className="min-w-0">
+                                    <p className="text-xs font-mono text-[hsl(var(--color-text-muted))] mb-1">
+                                        {material.rawMaterial?.code.toUpperCase()}
+                                    </p>
+                                    <h3 className="font-bold text-[hsl(var(--color-text-primary))] truncate">
+                                        {material.rawMaterial?.name}
+                                    </h3>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <button
+                                        className="p-2 rounded-lg bg-[hsl(var(--color-surface))] text-[hsl(var(--color-text-secondary))] hover:text-[hsl(var(--color-primary))] transition-colors border border-[hsl(var(--color-border))]"
+                                        onClick={() => handleOpenEditModal(material)}
+                                        title="Editar"
+                                    >
+                                        <Pencil className="w-5 h-5" />
+                                    </button>
+                                    <button
+                                        className="p-2 rounded-lg bg-[hsl(var(--color-error-light))] text-[hsl(var(--color-error))] hover:bg-[hsl(var(--color-error))] hover:text-white transition-all border border-[hsl(var(--color-error-light))]"
+                                        onClick={() => handleRemoveClick(material.rawMaterialId)}
+                                        title="Remover"
+                                    >
+                                        <Trash2 className="w-5 h-5" />
+                                    </button>
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-2 gap-4 pt-3 border-t border-[hsl(var(--color-border))]">
+                                <div>
+                                    <p className="text-[10px] uppercase font-bold text-[hsl(var(--color-text-muted))] tracking-wider mb-1">
+                                        Necessário
+                                    </p>
+                                    <p className="font-bold text-[hsl(var(--color-primary))]">
+                                        {material.quantityNeeded} {material.rawMaterial?.unit}
+                                    </p>
+                                </div>
+                                <div>
+                                    <p className="text-[10px] uppercase font-bold text-[hsl(var(--color-text-muted))] tracking-wider mb-1">
+                                        Em Estoque
+                                    </p>
+                                    <p className={`font-medium ${material.rawMaterial?.quantityInStock >= material.quantityNeeded
+                                        ? 'text-[hsl(var(--color-success))]'
+                                        : 'text-[hsl(var(--color-error))]'
+                                        }`}>
+                                        {material.rawMaterial?.quantityInStock || 0} {material.rawMaterial?.unit}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                )}
             </div>
 
             {/* Modal */}

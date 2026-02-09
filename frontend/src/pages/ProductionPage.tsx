@@ -59,19 +59,22 @@ export function ProductionPage() {
 
             {/* Total Value Card */}
             {data && (
-                <div className="mb-6 p-6 rounded-xl bg-gradient-to-br from-[hsl(var(--color-primary))] to-[hsl(250_87%_62%)] text-white">
-                    <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-lg bg-white/20 flex items-center justify-center">
-                            <TrendingUp className="w-6 h-6" />
+                <div className="mb-6 p-6 rounded-2xl bg-gradient-to-br from-[hsl(var(--color-primary))] to-[hsl(var(--color-secondary))] text-white shadow-xl shadow-blue-500/20">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                        <div className="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center flex-shrink-0">
+                            <TrendingUp className="w-8 h-8" />
                         </div>
-                        <div>
-                            <p className="text-sm opacity-90">Valor Total de Produção Sugerida</p>
-                            <p className="text-3xl font-bold">{formatCurrency(data.totalProductionValue)}</p>
+                        <div className="min-w-0">
+                            <p className="text-sm font-medium opacity-80 uppercase tracking-wider">Valor Total Sugerido</p>
+                            <p className="text-3xl md:text-4xl font-extrabold tracking-tight truncate">
+                                {formatCurrency(data.totalProductionValue)}
+                            </p>
                         </div>
                     </div>
-                    <p className="mt-4 text-sm opacity-75">
-                        Última atualização: {new Date(data.timestamp).toLocaleString('pt-BR')}
-                    </p>
+                    <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-medium opacity-70">
+                        <span>ESTÁTISTICAS DO DIA</span>
+                        <span>Atualizado às {new Date(data.timestamp).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}</span>
+                    </div>
                 </div>
             )}
 
@@ -85,24 +88,24 @@ export function ProductionPage() {
                     {data.suggestions.map((suggestion: ProductionSuggestion, index: number) => (
                         <div key={suggestion.productId} className="card">
                             <div
-                                className="flex items-center justify-between cursor-pointer"
+                                className="flex flex-col md:flex-row md:items-center justify-between cursor-pointer gap-4"
                                 onClick={() => toggleExpanded(suggestion.productId)}
                             >
-                                <div className="flex items-center gap-4">
-                                    <div className="w-10 h-10 rounded-lg bg-[hsl(var(--color-primary-light))] flex items-center justify-center text-[hsl(var(--color-primary))] font-bold">
+                                <div className="flex items-center gap-4 min-w-0">
+                                    <div className="w-10 h-10 rounded-lg bg-[hsl(var(--color-primary-light))] flex items-center justify-center text-[hsl(var(--color-primary))] font-bold flex-shrink-0">
                                         {index + 1}
                                     </div>
-                                    <div>
-                                        <h3 className="font-semibold text-[hsl(var(--color-text-primary))]">
+                                    <div className="min-w-0">
+                                        <h3 className="font-semibold text-[hsl(var(--color-text-primary))] truncate">
                                             {suggestion.productName}
                                         </h3>
-                                        <p className="text-sm text-[hsl(var(--color-text-secondary))]">
-                                            Código: {suggestion.productCode.toUpperCase()} | Valor unitário: {formatCurrency(suggestion.unitValue)}
+                                        <p className="text-sm text-[hsl(var(--color-text-secondary))] truncate">
+                                            {suggestion.productCode.toUpperCase()} • {formatCurrency(suggestion.unitValue)}/un
                                         </p>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-4">
-                                    <div className="text-right">
+                                <div className="flex items-center justify-between md:justify-end gap-6 border-t md:border-0 pt-3 md:pt-0">
+                                    <div className="text-left md:text-right">
                                         <p className="font-bold text-lg text-[hsl(var(--color-success))]">
                                             {formatCurrency(suggestion.totalValue)}
                                         </p>
@@ -110,11 +113,13 @@ export function ProductionPage() {
                                             {suggestion.quantityToProduce} unidades
                                         </p>
                                     </div>
-                                    {expandedProducts.has(suggestion.productId) ? (
-                                        <ChevronUp className="w-5 h-5 text-[hsl(var(--color-text-muted))]" />
-                                    ) : (
-                                        <ChevronDown className="w-5 h-5 text-[hsl(var(--color-text-muted))]" />
-                                    )}
+                                    <div className="flex-shrink-0">
+                                        {expandedProducts.has(suggestion.productId) ? (
+                                            <ChevronUp className="w-5 h-5 text-[hsl(var(--color-text-muted))]" />
+                                        ) : (
+                                            <ChevronDown className="w-5 h-5 text-[hsl(var(--color-text-muted))]" />
+                                        )}
+                                    </div>
                                 </div>
                             </div>
 

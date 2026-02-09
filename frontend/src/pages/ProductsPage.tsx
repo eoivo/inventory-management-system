@@ -115,7 +115,8 @@ export function ProductsPage() {
                 </div>
             )}
 
-            <div className="card p-0">
+            {/* Desktop Table View */}
+            <div className="card p-0 hidden lg:block">
                 <div className="table-container">
                     <table className="table">
                         <thead>
@@ -145,7 +146,7 @@ export function ProductsPage() {
                                     <tr key={product.id}>
                                         <td className="font-mono text-sm">{product.code.toUpperCase()}</td>
                                         <td className="font-medium">{product.name}</td>
-                                        <td>{formatCurrency(Number(product.value))}</td>
+                                        <td className="font-semibold">{formatCurrency(Number(product.value))}</td>
                                         <td>
                                             <Link
                                                 to={`/products/${product.id}/materials`}
@@ -187,6 +188,74 @@ export function ProductsPage() {
                         </tbody>
                     </table>
                 </div>
+            </div>
+
+            {/* Mobile Cards View */}
+            <div className="lg:hidden grid grid-cols-1 gap-4">
+                {loading && !products.length ? (
+                    <div className="card flex items-center justify-center py-12">
+                        <Loader2 className="w-8 h-8 animate-spin text-[hsl(var(--color-primary))]" />
+                    </div>
+                ) : products.length === 0 ? (
+                    <div className="card text-center py-12 text-[hsl(var(--color-text-secondary))]">
+                        Nenhum produto cadastrado
+                    </div>
+                ) : (
+                    products.map((product: Product) => (
+                        <div key={product.id} className="card flex flex-col gap-4">
+                            <div className="flex items-start justify-between">
+                                <div className="min-w-0">
+                                    <p className="text-xs font-mono text-[hsl(var(--color-text-muted))] mb-1">
+                                        {product.code.toUpperCase()}
+                                    </p>
+                                    <h3 className="font-bold text-[hsl(var(--color-text-primary))] truncate mb-1">
+                                        {product.name}
+                                    </h3>
+                                    <p className="text-lg font-bold text-[hsl(var(--color-primary))]">
+                                        {formatCurrency(Number(product.value))}
+                                    </p>
+                                </div>
+                                <div className="flex flex-col gap-2">
+                                    <div className="flex items-center gap-2">
+                                        <Link
+                                            to={`/products/${product.id}/materials`}
+                                            className="p-2 rounded-lg bg-[hsl(var(--color-primary-light))] text-[hsl(var(--color-primary))] hover:bg-[hsl(var(--color-primary))] hover:text-white transition-all shadow-sm"
+                                            title="Materiais"
+                                        >
+                                            <Layers className="w-5 h-5" />
+                                        </Link>
+                                        <button
+                                            className="p-2 rounded-lg bg-[hsl(var(--color-surface))] text-[hsl(var(--color-text-secondary))] hover:text-[hsl(var(--color-text-primary))] transition-colors border border-[hsl(var(--color-border))]"
+                                            onClick={() => handleOpenModal(product)}
+                                            title="Editar"
+                                        >
+                                            <Pencil className="w-5 h-5" />
+                                        </button>
+                                    </div>
+                                    <button
+                                        className="p-2 rounded-lg bg-[hsl(var(--color-error-light))] text-[hsl(var(--color-error))] hover:bg-[hsl(var(--color-error))] hover:text-white transition-all flex items-center justify-center border border-[hsl(var(--color-error-light))]"
+                                        onClick={() => handleDeleteClick(product.id)}
+                                        title="Excluir"
+                                    >
+                                        <Trash2 className="w-5 h-5" />
+                                    </button>
+                                </div>
+                            </div>
+                            <div className="pt-3 border-t border-[hsl(var(--color-border))]">
+                                <Link
+                                    to={`/products/${product.id}/materials`}
+                                    className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold ${(product.materials?.length || 0) > 0
+                                        ? 'bg-[hsl(var(--color-success-light))] text-[hsl(var(--color-success))]'
+                                        : 'bg-[hsl(var(--color-warning-light))] text-[hsl(var(--color-warning))]'
+                                        }`}
+                                >
+                                    <Layers className="w-3.5 h-3.5" />
+                                    {product.materials?.length || 0} materiais cadastrados
+                                </Link>
+                            </div>
+                        </div>
+                    ))
+                )}
             </div>
 
             {/* Modal */}

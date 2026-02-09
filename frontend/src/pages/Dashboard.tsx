@@ -94,17 +94,17 @@ export function Dashboard() {
                         {production.suggestions.slice(0, 5).map((suggestion: ProductionSuggestion) => (
                             <div
                                 key={suggestion.productId}
-                                className="flex items-center justify-between p-3 rounded-lg bg-[hsl(var(--color-surface))]"
+                                className="flex flex-col sm:flex-row sm:items-center justify-between p-3 rounded-lg bg-[hsl(var(--color-surface))] gap-2 sm:gap-4"
                             >
-                                <div>
-                                    <p className="font-medium text-[hsl(var(--color-text-primary))]">
+                                <div className="min-w-0">
+                                    <p className="font-medium text-[hsl(var(--color-text-primary))] truncate">
                                         {suggestion.productName}
                                     </p>
-                                    <p className="text-sm text-[hsl(var(--color-text-secondary))]">
+                                    <p className="text-sm text-[hsl(var(--color-text-secondary))] truncate">
                                         Código: {suggestion.productCode.toUpperCase()}
                                     </p>
                                 </div>
-                                <div className="text-right">
+                                <div className="text-left sm:text-right flex-shrink-0">
                                     <p className="font-semibold text-[hsl(var(--color-success))]">
                                         {formatCurrency(suggestion.totalValue)}
                                     </p>

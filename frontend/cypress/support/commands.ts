@@ -2,7 +2,7 @@
 
 export { };
 
-Cypress.Commands.add('login', (email = 'admin@projedata.com.br', password = 'admin123') => {
+Cypress.Commands.add('login', (email = 'admin@example.com', password = 'admin123') => {
     cy.request({
         method: 'POST',
         url: `${Cypress.config('baseUrl')}/api/auth/login`,

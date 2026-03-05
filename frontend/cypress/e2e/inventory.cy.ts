@@ -16,7 +16,7 @@ describe('Inventory Management System', () => {
     it('should show error on invalid login', () => {
         cy.clearLocalStorage();
         cy.visit('/login');
-        cy.get('input[type="email"]').type('errado@projedata.com.br');
+        cy.get('input[type="email"]').type('errado@example.com');
         cy.get('input[type="password"]').type('123456');
         cy.get('button[type="submit"]').click();
         cy.contains('Invalid credentials').should('be.visible');

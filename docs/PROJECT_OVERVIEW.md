@@ -1,20 +1,6 @@
 # Inventory Management System - Project Overview
 
-## Case Information
-
-**Company:** Projedata Informática  
-**Position:** Desenvolvedor de Software Full Stack Júnior  
-**Phase:** Teste Prático (Mão na massa)  
-**Developer:** Ivo Martins Fernandes
-
----
-
 ## Business Context
-
-### Company Profile
-Projedata é uma empresa especializada em desenvolvimento e implantação de software para gestão integrada (ERP), com mais de 20 anos no mercado. A empresa possui foco em indústrias de embalagens flexíveis e plásticos, oferecendo soluções como:
-- **Iniflex** (ERP principal)
-- Ferramentas de BI, APS e MES
 
 ### Target Market
 - Indústrias que produzem produtos diversos
@@ -113,7 +99,7 @@ Implementar um sistema de sugestão de produção que:
 - Database: **PostgreSQL**
 - Tests: **Jest + Supertest**
 
-**Rationale:** Developer has proven experience with Node.js ecosystem. NestJS provides enterprise-grade architecture similar to Quarkus/Spring (mentioned in job description).
+**Rationale:** NestJS provides enterprise-grade architecture with strong typing and dependency injection, ideal for scalable REST APIs.
 
 **Frontend**
 - Framework: **React 19**
@@ -123,7 +109,7 @@ Implementar um sistema de sugestão de produção que:
 - Components: **Shadcn/UI**
 - Tests: **Jest + React Testing Library**
 
-**Rationale:** All technologies explicitly suggested in job requirements and case description. Developer has extensive experience with this stack.
+**Rationale:** Modern, widely-adopted stack with strong community support and excellent developer experience.
 
 ### Architecture Pattern
 - **Clean Architecture** principles
@@ -311,7 +297,7 @@ This project demonstrates:
 - Documentation practices
 - Professional UI development
 
-All aligned with Projedata's requirements for the Junior Full Stack Developer position.
+All aligned with industry best practices for modern full-stack development.
 
 ### Personal Branding
 This case study can be added to portfolio as:

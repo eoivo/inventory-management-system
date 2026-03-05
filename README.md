@@ -1,18 +1,14 @@
 # Industrial Inventory Management System 🏭
 
-Sistema de gestão de inventário industrial para controle de produtos, matérias-primas e sugestões de produção otimizadas. Desenvolvido para o case técnico da Projedata.
+Sistema de gestão de inventário industrial para controle de produtos, matérias-primas e sugestões de produção otimizadas.
 
-### 🌐 Live Demo & API
-- **Frontend App**: [https://inventory-management-frontend-orcin.vercel.app/](https://inventory-management-frontend-orcin.vercel.app/)
-- **API Documentation (Swagger)**: [https://inventory-backend-3dx5.onrender.com/api](https://inventory-backend-3dx5.onrender.com/api)
-- **Base API URL**: [https://inventory-backend-3dx5.onrender.com](https://inventory-backend-3dx5.onrender.com)
 
 ## 🚀 Tecnologias
 
 ### Backend
 - **NestJS** - Framework Node.js para aplicações escaláveis
 - **Prisma 7** - ORM moderno para PostgreSQL
-- **PostgreSQL** (Neon.tech) - Banco de dados relacional
+- **PostgreSQL** - Banco de dados relacional
 - **Swagger** - Documentação interativa da API
 - **Jest** - Suite de testes unitários (95% coverage)
 
@@ -98,21 +94,22 @@ O sistema utiliza um **Algoritmo Guloso (Greedy Algorithm)** para maximizar o va
 6. `npm run db:clear` (Limpa dados mantendo apenas usuários)
 7. `npm run start:dev`
 
+> **Credenciais padrão** (criadas pelo seed):
+> - **E-mail:** `admin@admin.com`
+> - **Senha:** `admin123`
+
 ### Frontend
 1. Entre na pasta `frontend`
 2. `npm install`
 3. `npm run dev`
 
-## 🔗 URLs Úteis
+## 🔗 URLs Locais
 
-### Ambiente de Produção
-- **Frontend**: [https://inventory-management-frontend-orcin.vercel.app/](https://inventory-management-frontend-orcin.vercel.app/)
-- **Swagger Docs**: [https://inventory-backend-3dx5.onrender.com/api](https://inventory-backend-3dx5.onrender.com/api)
-
-### Ambiente Local
-- **Backend**: http://localhost:3000
-- **Swagger Docs**: http://localhost:3000/api
-- **Frontend**: http://localhost:5173
+| Serviço | URL |
+| :--- | :--- |
+| **Backend** | http://localhost:3000 |
+| **Swagger Docs** | http://localhost:3000/api |
+| **Frontend** | http://localhost:5173 |
 
 ## 📝 Licença
 MIT

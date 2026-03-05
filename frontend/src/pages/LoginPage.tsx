@@ -98,7 +98,7 @@ export function LoginPage() {
                                 id="email"
                                 type="email"
                                 className="form-input"
-                                placeholder="admin@projedata.com.br"
+                                placeholder="seu@email.com"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required

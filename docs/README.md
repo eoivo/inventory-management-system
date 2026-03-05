@@ -2,11 +2,10 @@
 
 ## Overview
 
-This is the complete documentation package for the Inventory Management System project, developed as a technical assessment for Projedata Informática's Full Stack Junior Developer position.
+This is the complete documentation package for the Inventory Management System project.
 
-**Developer:** Ivo Martins Fernandes  
 **Date:** February 2026  
-**Project Type:** Technical Case Study
+**Project Type:** Industrial Inventory Management System
 
 ---
 
@@ -479,10 +478,8 @@ Before submitting project:
 - [Tailwind CSS Docs](https://tailwindcss.com/docs)
 - [Shadcn/UI Docs](https://ui.shadcn.com/)
 
-### Projedata Context
-- Job Description: In PROJECT_OVERVIEW.md
-- Company Profile: In PROJECT_OVERVIEW.md
-- Case Requirements: In PROJECT_OVERVIEW.md
+### Additional Resources
+- External links and references are available within each documentation file.
 
 ---
 
